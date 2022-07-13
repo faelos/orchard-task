@@ -17,7 +17,7 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "scss/mixins/_all.scss";', // imported into every component. Mixins and %placeholders only! global styles from `scss/globals/` are imported in App.vue
+        additionalData: '@import "@/scss/mixins/_all.scss";', // imported into every component. Mixins and %placeholders only! global styles from `scss/globals/` are imported in App.vue
       },
     }
   }
