@@ -34,11 +34,38 @@
 }
 
 .primary-btn {
-  @include u-button-base(white, white, #002f5f, lighten(#002f5f, 3%), white, #dddddd);
-  padding: 0 32px;
-  border: none;
-  line-height: 40px;
+  @include u-button-base(white, white, transparent, transparent);
+  padding: 0 2px;
+  line-height: 38px;
   font-size: 16px;
-  border-radius: 4px;
   font-weight: 600;
+  letter-spacing: -0.2px;
+  text-transform: uppercase;
+  border-bottom: 1px solid $primary;
+
+  &:after {
+    content: '❯';
+    position: absolute;
+    opacity: 0;
+    margin-left: 0;
+    transition: all 0.1s linear;
+  }
+
+  .no-touch &:hover,
+  &:focus {
+    padding-right: 20px;
+
+    &:after {
+      opacity: 1;
+      margin-left: 10px;
+    }
+  }
+
+  .has-touch & {
+    @include media('<tablet') {
+      position: relative;
+      z-index: 1;
+      @include u-extend-hitbox();
+    }
+  }
 }

@@ -1,8 +1,12 @@
 <template>
   <a href="#main" class="skip-link">skip to content</a>
   <div id="main">
-    <Hero :content="content.hero" />
-    <LatestArticles :content="content.latestArticles" />
+    <div class="l-gutters">
+      <div class="l-container">
+        <Hero :content="content.hero" />
+        <LatestArticles :content="content.latestArticles" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -45,6 +49,7 @@ export default {
       })
       document.documentElement.classList.add(this.activeBreakpoint)
       document.documentElement.classList.toggle('no-touch', !isTouchDevice())
+      document.documentElement.classList.toggle('has-touch', isTouchDevice())
     },
   },  
 }

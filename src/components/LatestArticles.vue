@@ -1,7 +1,9 @@
 <template>
   <h3>{{ content.heading }}</h3>
-  <div v-for="article in content.articles">
-    <LatestArticlesItem :content="article" />
+  <div class="articles">
+    <div v-for="article in content.articles">
+      <LatestArticlesItem :content="article" />
+    </div>
   </div>
 </template>
 
@@ -16,6 +18,23 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+h3 {
+  @extend %h3;
+  margin-top: 100px;
+}
+.articles {
+  lost-flex-container: row;
+  
+  > div {
+    margin-bottom: 60px;
+    
+    @include media('>=tablet', '<tablet-landscape') {
+      lost-column: 1/2 2 5%;
+    }
+    @include media('>=tablet-landscape') {
+      lost-column: 1/3;
+    }
+  }
+}
 </style>
