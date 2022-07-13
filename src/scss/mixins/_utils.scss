@@ -1,0 +1,174 @@
+%u-smoothing {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+%u-truncate {
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+%u-accelerate {
+  backface-visibility: hidden;
+  perspective: 1;
+  transform: translateZ(1);
+}
+
+@mixin u-link-hover($col, $hover-col: $col, $decoration: none, $hover-decoration: none) {
+  text-decoration: $decoration;
+  transition: color 0.15s;
+  color: $col;
+  &:active,
+  &:focus,
+  .no-touch &:hover {
+    color: $hover-col;
+    text-decoration: $hover-decoration;
+  }
+}
+
+// usage: @include u-crop-line-height(1.2)
+@mixin u-crop-line-height($line-height) {
+  &:before {
+    content: '';
+    display: block;
+    height: 0;
+    width: 0;
+    margin-top: calc((1 - #{$line-height}) * 0.5em);
+  }
+}
+
+%u-accessibility {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@mixin u-font-smooth() {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// usage: @include u-vertical-center(20%, relative);
+@mixin u-vertical-center($top: 50%, $pos: absolute) {
+  position: $pos;
+  top: $top;
+  transform: translateY(-50%);
+}
+
+// usage: @include u-horizontal-center();
+@mixin u-horizontal-center($left: 50%, $pos: absolute) {
+  position: $pos;
+  left: $left;
+  transform: translateX(-50%);
+}
+
+// usage: @include u-center();
+@mixin u-center($left: 50%, $top: 50%, $pos: absolute) {
+  position: $pos;
+  top: $top;
+  left: $left;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+// usage: @include u-extend-hitbox();
+// parent needs z-index set
+@mixin u-extend-hitbox($size: 10px, $pseudoEl: before, $zIndex: -1) {
+  &:#{$pseudoEl} {
+    content: '';
+    position: absolute;
+    z-index: $zIndex;
+    top: -$size;
+    bottom: -$size;
+    right: -$size;
+    left: -$size;
+  }
+}
+
+// usage: add '@include u-bright-hover;' to img
+@mixin u-bright-hover($amount: 1.08) {
+  filter: blur(0); // jank fix
+  transition: all 0.2s linear;
+  .no-touch &:hover,
+  &.is-selected {
+      filter: blur(0) brightness(#{$amount});
+  }
+}
+
+// usage: <span class='u-line-break'></span>
+%u-line-break:after {
+  content: '\A';
+  white-space: pre;
+}
+
+@keyframes u-spinner {
+  from {
+      transform-origin: 50% 50%;
+      transform: rotate(0deg);
+  }
+  to {
+      transform-origin: 50% 50%;
+      transform: rotate(360deg);
+  }
+}
+
+@mixin u-spinner($radius: 23px, $border-width: 3px, $primary: rgba(#fff, 0.25), $secondary: rgba(#fff, 0.8)) {
+  position: absolute;
+  pointer-events: none;
+  width: $radius;
+  height: $radius;
+
+  &:after {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    animation: u-spinner .4s infinite linear;
+    border: $border-width $primary solid;
+    border-top: $border-width $secondary solid;
+  }
+}
+
+@mixin u-button-base($text, $text-on, $bg, $bg-on, $text-disabled: "", $bg-disabled: "") {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.1s linear;
+  color: $text;
+  background-color: $bg;
+
+  &.is-selected,
+  .no-touch &:hover,
+  &:focus {
+    color: $text-on;
+    background-color: $bg-on;
+  }
+
+  @if $text-disabled {
+    &[disabled],
+    &.is-disabled {
+      color: $text-disabled;
+      background-color: $bg-disabled;
+      cursor: not-allowed;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+  }
+
+  &.is-loading {
+    pointer-events: none;
+  }
+
+  svg {
+    fill: currentColor;
+  }
+}

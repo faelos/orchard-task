@@ -1,0 +1,44 @@
+/*
+<button class="primary-btn is-loading" type="button">
+  <span class="btn__loading-wrap">
+    <span class="btn__label">Label</span>
+    <span class="btn__spinner"></span>
+  </span>
+</button>
+*/
+
+.btn__loading-wrap {
+  position: relative;
+  transition-property: padding-right;
+  transition-duration: inherit;
+  transition-timing-function: inherit;
+
+  .is-loading & {
+    display: block;
+    padding-right: 17px;
+  }
+}
+
+.btn__spinner {
+  @include u-spinner();
+  @include u-vertical-center();
+  right: -15px;
+  position: absolute;
+  transform: translateY(-50%) scale(0);
+  transform-origin: 50% 50%;
+
+  .is-loading & {
+    transform: translateY(-50%) scale(1);
+    transition: 0.4s ease(out-back);
+  }
+}
+
+.primary-btn {
+  @include u-button-base(white, white, #002f5f, lighten(#002f5f, 3%), white, #dddddd);
+  padding: 0 32px;
+  border: none;
+  line-height: 40px;
+  font-size: 16px;
+  border-radius: 4px;
+  font-weight: 600;
+}

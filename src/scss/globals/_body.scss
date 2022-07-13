@@ -1,0 +1,17 @@
+body {
+  @include u-font-smooth();
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  color: black;
+  overflow-x: hidden;
+
+  &.is-scroll-locked {
+    margin: 0;
+    width: 100vw;
+    height:100vh;
+    overflow: hidden;
+  }
+}
+
+::selection {
+  //
+}
