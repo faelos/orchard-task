@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ content.heading }}</h2>
+  <h3>{{ content.heading }}</h3>
   <div v-for="article in content.articles">
     <LatestArticlesItem :content="article" />
   </div>
