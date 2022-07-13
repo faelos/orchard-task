@@ -1,5 +1,6 @@
 body {
   @include u-font-smooth();
+  @extend %f-opensans;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   color: black;
   overflow-x: hidden;
