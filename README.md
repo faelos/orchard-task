@@ -1,7 +1,29 @@
-# Vue 3 + Vite
+# Orchard Technical Task
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Given I had the opportunity to build something from scratch I've decided to upskill and learn the new Vite tooling and brush up on my Vue 3 knowledge. I hope this repo demonstrates my competency, desire to always be learning, and of course my eagerness to be a part of the Orchard team!
 
-## Recommended IDE Setup
+Start dev
+```
+$ npm run dev
+```
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+Build for preview/deployment
+```
+$ npm run build
+```
+
+Preview build (_serve from dist_)
+```
+$ npm run preview
+```
+
+### TODO
+
+_Some things on the radar_:
+* Latest articles could be a slider @phone
+* Lazy load images / low res base64 initial placeholder maybe
+* Hero image layout tweaks needed just above @tablet
+* Potentially calculate min-height on latest articles description so 'read more' buttons horizontally align. Would require description max length check/cull/ellipsis. Would guard against wall of text from CMS.
+* Articles could quickly fade in LTR when reaching viewport @>=tablet
+* e2e testing of happy path
+    * lightbox opens on hero image click with correct content 
