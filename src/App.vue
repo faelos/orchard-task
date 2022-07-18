@@ -48,8 +48,9 @@ export default {
         document.documentElement.classList.remove(bp)
       })
       document.documentElement.classList.add(this.activeBreakpoint)
-      document.documentElement.classList.toggle('no-touch', !isTouchDevice())
-      document.documentElement.classList.toggle('has-touch', isTouchDevice())
+      const hasTouch = isTouchDevice()
+      document.documentElement.classList.toggle('no-touch', !hasTouch)
+      document.documentElement.classList.toggle('has-touch', hasTouch)
     },
   },  
 }
