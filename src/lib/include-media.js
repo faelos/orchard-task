@@ -2,97 +2,106 @@
 export default im()
 
 function im() {
-  var element = document.body;
-  var autoUpdate = true;
-  var breakpoints = false;
+  var element = document.body
+  var autoUpdate = true
+  var breakpoints = false
 
   function setElement(newElement) {
-    element = newElement;
+    element = newElement
   }
 
   function setUpdateMode(updateMode) {
     if (updateMode == 'manual') {
-      autoUpdate = false;
-      readBreakpoints();
+      autoUpdate = false
+      readBreakpoints()
     }
   }
 
   function readBreakpoints() {
-    if (window.getComputedStyle && (window.getComputedStyle(element, '::after').content !== '')) {
-      var data = window.getComputedStyle(element, '::after').content;
+    if (
+      window.getComputedStyle &&
+      window.getComputedStyle(element, '::after').content !== ''
+    ) {
+      var data = window.getComputedStyle(element, '::after').content
 
       try {
-        breakpoints = JSON.parse(removeQuotes(data));
+        breakpoints = JSON.parse(removeQuotes(data))
       } catch (err) {
-        breakpoints = false;
+        breakpoints = false
       }
     } else {
-      breakpoints = false;
+      breakpoints = false
     }
   }
 
   function isBreakpointActive(breakpoint) {
     if (autoUpdate) {
-      readBreakpoints();
+      readBreakpoints()
     }
 
-    return breakpoints.hasOwnProperty(breakpoint) && breakpoints[breakpoint].active;
+    return (
+      breakpoints.hasOwnProperty(breakpoint) && breakpoints[breakpoint].active
+    )
   }
 
   function isBreakpointNotActive(breakpoint) {
-    return !isBreakpointActive(breakpoint);
+    return !isBreakpointActive(breakpoint)
   }
 
   function getActiveBreakpoint() {
     if (autoUpdate) {
-      readBreakpoints();
+      readBreakpoints()
     }
 
-    var largest = {name: false, value: 0};
+    var largest = { name: false, value: 0 }
 
     for (var breakpoint in breakpoints) {
       if (breakpoints.hasOwnProperty(breakpoint)) {
-        var breakpointValue = parseFloat(breakpoints[breakpoint].value);
+        var breakpointValue = parseFloat(breakpoints[breakpoint].value)
 
-        if (breakpoints[breakpoint].active && (breakpointValue > largest.value)) {
-          largest = {name: breakpoint, value: breakpointValue};
+        if (breakpoints[breakpoint].active && breakpointValue > largest.value) {
+          largest = { name: breakpoint, value: breakpointValue }
         }
       }
     }
 
-    return largest.name;
+    return largest.name
   }
 
   function getBreakpointValue(breakpoint, asNumber) {
     if (autoUpdate) {
-      readBreakpoints();
+      readBreakpoints()
     }
 
     if (!breakpoints || !breakpoints.hasOwnProperty(breakpoint)) {
-      return false;
+      return false
     }
 
-    return asNumber ? parseFloat(breakpoints[breakpoint].value) : breakpoints[breakpoint].value;
+    return asNumber
+      ? parseFloat(breakpoints[breakpoint].value)
+      : breakpoints[breakpoint].value
   }
 
   function getBreakpointLabels() {
     if (autoUpdate) {
-      readBreakpoints();
+      readBreakpoints()
     }
-    return Object.keys(breakpoints);
+    return Object.keys(breakpoints)
   }
 
   /**
-  *
-  * Function by Les James (@lesjames) taken from https://css-tricks.com/making-sass-talk-to-javascript-with-json/
-  *
-  **/
+   *
+   * Function by Les James (@lesjames) taken from https://css-tricks.com/making-sass-talk-to-javascript-with-json/
+   *
+   **/
   function removeQuotes(string) {
     if (typeof string === 'string' || string instanceof String) {
-      string = string.replace(/[']/g, '"').replace(/\\|^[\s\S]{0,1}|[\s\S]$/g, '');
+      string = string
+        .replace(/[']/g, '"')
+        .replace(/\\|^[\s\S]{0,1}|[\s\S]$/g, '')
     }
 
-    return string;
+    return string
   }
 
   return {
@@ -103,6 +112,6 @@ function im() {
     getActive: getActiveBreakpoint,
     getValue: getBreakpointValue,
     update: readBreakpoints,
-    getBreakpointLabels: getBreakpointLabels
-  };
-};
+    getBreakpointLabels: getBreakpointLabels,
+  }
+}

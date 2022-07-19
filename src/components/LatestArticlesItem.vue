@@ -1,21 +1,24 @@
 <template>
-  <a 
+  <a
     class="img-wrap"
     :href="content.url"
     @click="onClick(content.title, $event)"
   >
-    <img :src="content.imgSrc" :alt="content.imgAlt" />
+    <img
+      :src="content.imgSrc"
+      :alt="content.imgAlt"
+    />
   </a>
-  <a 
-    class="title" 
+  <a
+    class="title"
     :href="content.url"
     @click="onClick(content.title, $event)"
   >
     {{ content.title }}
   </a>
   <p>{{ content.desc }}</p>
-  <a 
-    class="primary-btn" 
+  <a
+    class="primary-btn"
     :href="content.url"
     @click="onClick(content.title, $event)"
   >
@@ -25,12 +28,17 @@
 
 <script>
 export default {
-  props: ['content'],
+  props: {
+    content: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     onClick(title, e) {
       console.log(`clicked ${title}`, e.target)
-    }
-  }
+    },
+  },
 }
 </script>
 

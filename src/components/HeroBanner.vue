@@ -5,20 +5,38 @@
         <div class="hero__img-cols">
           <div class="hero__img-col">
             <div class="hero__img-main">
-              <a href="javascript:void(0)" @click="onImgClick(0, $event)">
-                <img :src="content.images[0].src" :alt="content.images[0].alt" />
+              <a
+                href="javascript:void(0)"
+                @click="onImgClick(0, $event)"
+              >
+                <img
+                  :src="content.images[0].src"
+                  :alt="content.images[0].alt"
+                />
               </a>
             </div>
           </div>
           <div class="hero__img-col">
             <div class="hero__img-sml">
-              <a href="javascript:void(0)" @click="onImgClick(1, $event)">
-                <img :src="content.images[1].src" :alt="content.images[1].alt" />
+              <a
+                href="javascript:void(0)"
+                @click="onImgClick(1, $event)"
+              >
+                <img
+                  :src="content.images[1].src"
+                  :alt="content.images[1].alt"
+                />
               </a>
             </div>
             <div class="hero__img-sml">
-              <a href="javascript:void(0)" @click="onImgClick(2, $event)">
-                <img :src="content.images[2].src" :alt="content.images[2].alt" />
+              <a
+                href="javascript:void(0)"
+                @click="onImgClick(2, $event)"
+              >
+                <img
+                  :src="content.images[2].src"
+                  :alt="content.images[2].alt"
+                />
               </a>
             </div>
           </div>
@@ -35,13 +53,15 @@
   </div>
 
   <vue-easy-lightbox
-      moveDisabled
-      :visible="isModalVisible"
-      :imgs="modalImg"
-      @hide="onModalHide"
-    >
-      <template v-slot:toolbar="{ toolbarMethods }"><!-- removes toolbar --></template>
-    </vue-easy-lightbox>
+    move-disabled
+    :visible="isModalVisible"
+    :imgs="modalImg"
+    @hide="onModalHide"
+  >
+    <template #toolbar="{}">
+      <!-- removes toolbar -->
+    </template>
+  </vue-easy-lightbox>
 </template>
 
 <script>
@@ -49,26 +69,31 @@ import VueEasyLightbox from 'vue-easy-lightbox'
 
 export default {
   components: {
-    VueEasyLightbox
+    VueEasyLightbox,
   },
-  props: ['content'],
+  props: {
+    content: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       modalImg: '',
       isModalVisible: false,
     }
-  },  
+  },
   methods: {
     onImgClick(imgIndex, e) {
       const imgSrcForModal = this.content.images[imgIndex].src
       console.log(`open ${imgSrcForModal} in modal`, e.target)
       this.modalImg = imgSrcForModal
       this.isModalVisible = true
-    },  
+    },
     onModalHide() {
       this.isModalVisible = false
-    },  
-  }
+    },
+  },
 }
 </script>
 
@@ -84,6 +109,7 @@ export default {
     lost-flex-container: row;
   }
 }
+
 .hero__col {
   @include media('>=tablet', '<tablet-landscape') {
     lost-column: 1/2;
@@ -92,25 +118,29 @@ export default {
       align-self: center;
     }
   }
+
   @include media('>=tablet-landscape') {
     &:first-child {
       lost-column: 2/3;
     }
+
     &:last-child {
       lost-column: 1/3;
     }
   }
 }
+
 .hero__img-col {
   @include media('>=tablet', '<tablet-landscape') {
     lost-column: 1/2 2 5px;
   }
+
   @include media('>=tablet-landscape') {
     lost-column: 1/2 2 24px;
   }
 }
-.hero__img-main {
 
+.hero__img-main {
   @include media('<tablet') {
     position: absolute;
     top: -60px;
@@ -128,10 +158,11 @@ export default {
       bottom: 0;
       width: 100%;
       height: calc(var(--vh, 1vh) * 70);
-      background-image: linear-gradient(rgba(transparent,0) 50%, rgba($bg,1));
+      background-image: linear-gradient(rgba(transparent, 0) 50%, rgba($bg, 1));
     }
   }
 }
+
 .hero__img-sml {
   display: none;
 
@@ -140,17 +171,20 @@ export default {
   }
 
   &:last-child {
-      @include media('>=tablet', '<tablet-landscape') {
+    @include media('>=tablet', '<tablet-landscape') {
       margin-top: 5px;
     }
+
     @include media('>=tablet-landscape') {
       margin-top: 18px;
     }
   }
 }
+
 img {
   @include u-bright-hover();
 }
+
 h1 {
   @extend %h1;
 
@@ -159,6 +193,7 @@ h1 {
     font-weight: 400;
   }
 }
+
 hr {
   border: 0;
   background-color: white;
@@ -166,14 +201,17 @@ hr {
   margin-top: 15px;
   margin-bottom: 28px;
 }
+
 .desc {
   @extend %p;
   font-size: 18px;
 }
+
 h2 {
   @extend %h2;
   margin-top: 43px;
 }
+
 .subcontent {
   font-weight: 500;
   font-size: 18px;

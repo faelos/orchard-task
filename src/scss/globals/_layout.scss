@@ -6,9 +6,9 @@
 }
 .l-gutters {
   @include media('<tablet') {
-      padding: 0 20px;
+    padding: 0 20px;
   }
   @include media('>=tablet') {
-      padding: 0 30px;
+    padding: 0 30px;
   }
 }

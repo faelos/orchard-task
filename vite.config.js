@@ -4,21 +4,19 @@ const path = require('path')
 
 export default defineConfig({
   plugins: [vue()],
-  resolve:{
-    alias:{
-      '@' : path.resolve(__dirname, './src')
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
   },
   css: {
     postcss: {
-      plugins: [
-        require('lost'),
-      ]
+      plugins: [require('lost')],
     },
     preprocessorOptions: {
       scss: {
         additionalData: '@import "@/scss/mixins/_all.scss";', // imported into every component. Mixins and %placeholders only! global styles from `scss/globals/` are imported in App.vue
       },
-    }
-  }
+    },
+  },
 })
