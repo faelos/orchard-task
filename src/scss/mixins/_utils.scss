@@ -5,9 +5,9 @@
 }
 
 %u-truncate {
-  overflow:hidden;
-  white-space:nowrap;
-  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 %u-accelerate {
@@ -16,7 +16,12 @@
   transform: translateZ(1);
 }
 
-@mixin u-link-hover($col, $hover-col: $col, $decoration: none, $hover-decoration: none) {
+@mixin u-link-hover(
+  $col,
+  $hover-col: $col,
+  $decoration: none,
+  $hover-decoration: none
+) {
   text-decoration: $decoration;
   transition: color 0.15s;
   color: $col;
@@ -96,7 +101,7 @@
   transition: all 0.2s linear;
   .no-touch &:hover,
   &.is-selected {
-      filter: blur(0) brightness(#{$amount});
+    filter: blur(0) brightness(#{$amount});
   }
 }
 
@@ -108,16 +113,21 @@
 
 @keyframes u-spinner {
   from {
-      transform-origin: 50% 50%;
-      transform: rotate(0deg);
+    transform-origin: 50% 50%;
+    transform: rotate(0deg);
   }
   to {
-      transform-origin: 50% 50%;
-      transform: rotate(360deg);
+    transform-origin: 50% 50%;
+    transform: rotate(360deg);
   }
 }
 
-@mixin u-spinner($radius: 23px, $border-width: 3px, $primary: rgba(#fff, 0.25), $secondary: rgba(#fff, 0.8)) {
+@mixin u-spinner(
+  $radius: 23px,
+  $border-width: 3px,
+  $primary: rgba(#fff, 0.25),
+  $secondary: rgba(#fff, 0.8)
+) {
   position: absolute;
   pointer-events: none;
   width: $radius;
@@ -132,13 +142,20 @@
     left: 0;
     top: 0;
     border-radius: 50%;
-    animation: u-spinner .4s infinite linear;
+    animation: u-spinner 0.4s infinite linear;
     border: $border-width $primary solid;
     border-top: $border-width $secondary solid;
   }
 }
 
-@mixin u-button-base($text, $text-on, $bg, $bg-on, $text-disabled: "", $bg-disabled: "") {
+@mixin u-button-base(
+  $text,
+  $text-on,
+  $bg,
+  $bg-on,
+  $text-disabled: '',
+  $bg-disabled: ''
+) {
   display: inline-block;
   text-align: center;
   text-decoration: none;

@@ -1,9 +1,13 @@
 <template>
-  <a href="#main" class="skip-link">skip to content</a>
+  <a
+    href="#main"
+    class="skip-link"
+    >skip to content</a
+  >
   <div id="main">
     <div class="l-gutters">
       <div class="l-container">
-        <Hero :content="content.hero" />
+        <HeroBanner :content="content.hero" />
         <LatestArticles :content="content.latestArticles" />
       </div>
     </div>
@@ -16,20 +20,20 @@ import isTouchDevice from '@/lib/is-touch-device'
 import useBreakpoints from '@/hooks/breakpoints'
 import useSetVhCss from '@/hooks/set-vh-css'
 
-import Hero from '@/components/Hero.vue'
+import HeroBanner from '@/components/HeroBanner.vue'
 import LatestArticles from '@/components/LatestArticles.vue'
 
 // todo: add/remove is-tabbing
 
 export default {
+  components: {
+    HeroBanner,
+    LatestArticles,
+  },
   setup() {
     useSetVhCss()
-    const {  activeBreakpoint, breakpointLabels } = useBreakpoints()
+    const { activeBreakpoint, breakpointLabels } = useBreakpoints()
     return { activeBreakpoint, breakpointLabels } // return setup() props to template
-  },
-  components: {
-    Hero,
-    LatestArticles,
   },
   data() {
     return {
@@ -39,19 +43,20 @@ export default {
   watch: {
     activeBreakpoint() {
       this.getHtmlClasses()
-    }
-  },  
+    },
+  },
   methods: {
     // as a rule keep any application state classes on <body.nav-open> and utility classes on <html.has-touch>
     getHtmlClasses() {
-      this.breakpointLabels.forEach(bp => {
+      this.breakpointLabels.forEach((bp) => {
         document.documentElement.classList.remove(bp)
       })
       document.documentElement.classList.add(this.activeBreakpoint)
-      document.documentElement.classList.toggle('no-touch', !isTouchDevice())
-      document.documentElement.classList.toggle('has-touch', isTouchDevice())
+      const hasTouch = isTouchDevice()
+      document.documentElement.classList.toggle('no-touch', !hasTouch)
+      document.documentElement.classList.toggle('has-touch', hasTouch)
     },
-  },  
+  },
 }
 </script>
 

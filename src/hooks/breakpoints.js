@@ -10,11 +10,9 @@ import im from '@/lib/include-media'
 import { useEventListener } from '@vueuse/core'
 import debounce from 'lodash/debounce'
 
-
 import { nextTick, ref, onMounted } from 'vue'
 
 export default function useBreakpoints() {
-
   const debouncedResize = debounce(onResize, 100)
   const clientWidth = ref(0)
   const clientHeight = ref(0)
@@ -22,7 +20,6 @@ export default function useBreakpoints() {
   const breakpointLabels = ref(null)
 
   function onResize() {
-
     clientWidth.value = window.innerWidth || 0
     clientHeight.value = window.innerHeight || 0
     activeBreakpoint.value = im.getActive()
@@ -42,12 +39,14 @@ export default function useBreakpoints() {
     const ltDesktop = im.lessThan('desktop')*/
   }
 
-  onMounted(nextTick(() => {
-    onResize()
-    useEventListener(window, 'resize', debouncedResize, { passive: true })
-  }))
+  onMounted(
+    nextTick(() => {
+      onResize()
+      useEventListener(window, 'resize', debouncedResize, { passive: true })
+    })
+  )
 
-  return { 
+  return {
     clientWidth,
     clientHeight,
     activeBreakpoint,

@@ -1,7 +1,10 @@
 <template>
   <h3>{{ content.heading }}</h3>
   <div class="articles">
-    <div v-for="article in content.articles">
+    <div
+      v-for="(article, i) in content.articles"
+      :key="`article-${i}`"
+    >
       <LatestArticlesItem :content="article" />
     </div>
   </div>
@@ -14,7 +17,12 @@ export default {
   components: {
     LatestArticlesItem,
   },
-  props: ['content'],
+  props: {
+    content: {
+      type: Object,
+      required: true,
+    },
+  },
 }
 </script>
 
@@ -23,15 +31,17 @@ h3 {
   @extend %h3;
   margin-top: 100px;
 }
+
 .articles {
   lost-flex-container: row;
-  
+
   > div {
     margin-bottom: 60px;
-    
+
     @include media('>=tablet', '<tablet-landscape') {
       lost-column: 1/2 2 5%;
     }
+
     @include media('>=tablet-landscape') {
       lost-column: 1/3;
     }
