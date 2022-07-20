@@ -9,7 +9,7 @@ import { nextTick, ref, onMounted } from 'vue'
 import throttle from 'lodash/throttle'
 
 export default function useSetVhCss() {
-  let throttledResize = throttle(onResize, 500)
+  const throttledResize = throttle(onResize, 500)
   const vh = ref(0)
 
   function onResize() {
