@@ -46,7 +46,7 @@
               >
                 <img
                   v-for="(n, i) in 12"
-                  :key="i"
+                  :key="`desktop-stem-${i}`"
                   :class="`fx-asparagus__stem-${n}`"
                   :src="getAsparagusStemImg(n)"
                   alt=""
@@ -96,7 +96,7 @@
             >
               <img
                 v-for="(n, i) in 12"
-                :key="i"
+                :key="`phone-stem-${i}`"
                 :class="`fx-asparagus__stem-${n}`"
                 :src="getAsparagusStemImg(n)"
                 alt=""
