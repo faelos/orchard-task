@@ -24,10 +24,9 @@ $ npm run preview
 
 _Some things on the radar_:
 
-- Latest articles could be a slider @phone
+- Add fontfaceobserver for [fitty](https://github.com/rikschennink/fitty)
+- Make component of `.fx-plate` and `.fx-asparagus` -> DRY
 - Lazy load images / low res base64 initial placeholder maybe
-- Hero image layout tweaks needed just above @tablet
 - Potentially calculate min-height on latest articles description so 'read more' buttons horizontally align. Would require description max length check/cull/ellipsis. Would guard against wall of text from CMS.
-- Articles could quickly fade in LTR when reaching viewport @>=tablet
 - e2e testing of happy path
   - lightbox opens on hero image click with correct content

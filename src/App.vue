@@ -22,6 +22,7 @@ import useSetVhCss from '@/hooks/set-vh-css'
 
 import HeroBanner from '@/components/HeroBanner.vue'
 import LatestArticles from '@/components/LatestArticles.vue'
+import { onMounted } from 'vue'
 
 // todo: add/remove is-tabbing
 
@@ -31,6 +32,12 @@ export default {
     LatestArticles,
   },
   setup() {
+    onMounted(() => {
+      window.addEventListener('load', () => {
+        document.documentElement.classList.add('ready')
+      })
+    })
+
     useSetVhCss()
     const { activeBreakpoint, breakpointLabels } = useBreakpoints()
     return { activeBreakpoint, breakpointLabels } // return setup() props to template
