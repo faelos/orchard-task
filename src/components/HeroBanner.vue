@@ -210,7 +210,7 @@ export default {
     getAsparagusStemImg(i) {
       if (i > 4 && i <= 8) i -= 4
       if (i > 8) i -= 8
-      return new URL(`/stem-${i}@2x.png`, import.meta.url).href
+      return new URL(`../../public/stem-${i}@2x.png`, import.meta.url)
     },
     setupPixi() {
       const loader = new PIXI.Loader()

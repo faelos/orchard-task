@@ -9,6 +9,16 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  optimizeDeps: {
+    esbuildOptions: {
+      // for dynamic img import
+      target: 'es2020',
+    },
+  },
+  build: {
+    // for dynamic img import
+    target: 'es2020',
+  },
   css: {
     postcss: {
       plugins: [require('lost')],
