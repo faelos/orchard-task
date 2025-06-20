@@ -22,7 +22,7 @@ import useSetVhCss from '@/hooks/set-vh-css'
 
 import HeroBanner from '@/components/HeroBanner.vue'
 import LatestArticles from '@/components/LatestArticles.vue'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 
 // todo: add/remove is-tabbing
 
@@ -32,37 +32,39 @@ export default {
     LatestArticles,
   },
   setup() {
+    useSetVhCss()
+    const { activeBreakpoint, breakpointLabels } = useBreakpoints()
+
+    // as a rule keep any application state classes on <body.nav-open> and utility classes on <html.has-touch>
+    const getHtmlClasses = () => {
+
+      breakpointLabels.value.forEach((bp) => {
+        document.documentElement.classList.remove(bp)
+      })
+
+      document.documentElement.classList.add(activeBreakpoint.value)
+      const hasTouch = isTouchDevice()
+      document.documentElement.classList.toggle('no-touch', !hasTouch)
+      document.documentElement.classList.toggle('has-touch', hasTouch)
+    }
+
     onMounted(() => {
       window.addEventListener('load', () => {
         document.documentElement.classList.add('ready')
       })
+
+      getHtmlClasses()
     })
 
-    useSetVhCss()
-    const { activeBreakpoint, breakpointLabels } = useBreakpoints()
-    return { activeBreakpoint, breakpointLabels } // return setup() props to template
-  },
-  data() {
-    return {
-      content,
-    }
-  },
-  watch: {
-    activeBreakpoint() {
-      this.getHtmlClasses()
-    },
-  },
-  methods: {
-    // as a rule keep any application state classes on <body.nav-open> and utility classes on <html.has-touch>
-    getHtmlClasses() {
-      this.breakpointLabels.forEach((bp) => {
-        document.documentElement.classList.remove(bp)
-      })
-      document.documentElement.classList.add(this.activeBreakpoint)
-      const hasTouch = isTouchDevice()
-      document.documentElement.classList.toggle('no-touch', !hasTouch)
-      document.documentElement.classList.toggle('has-touch', hasTouch)
-    },
+    watch(activeBreakpoint, () => {
+      getHtmlClasses()
+    })
+
+    return { 
+      activeBreakpoint, 
+      breakpointLabels,
+      content, 
+    } // return setup() props to template
   },
 }
 </script>

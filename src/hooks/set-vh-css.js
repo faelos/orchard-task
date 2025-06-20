@@ -17,12 +17,10 @@ export default function useSetVhCss() {
     document.documentElement.style.setProperty('--vh', `${vh.value}px`)
   }
 
-  onMounted(
-    nextTick(() => {
-      onResize()
-      useEventListener(window, 'resize', throttledResize, { passive: true })
-    })
-  )
+  onMounted(() => {
+    onResize()
+    useEventListener(window, 'resize', throttledResize, { passive: true })
+  })
 
   return {
     vh,
