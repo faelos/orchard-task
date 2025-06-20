@@ -45,8 +45,8 @@
                 @click="onImgClick(2, $event)"
               >
                 <img
-                  v-for="(n, i) in 12"
-                  :key="`desktop-stem-${i}`"
+                  v-for="n in 12"
+                  :key="`desktop-stem-${n}`"
                   :class="`fx-asparagus__stem-${n}`"
                   :src="getAsparagusStemImg(n)"
                   alt=""
@@ -79,7 +79,7 @@
             >
               <img
                 class="fx-plate__fore"
-                src="/hero-2-overlay@2x.png"
+                :src="plateUrl"
                 alt=""
               />
               <img
@@ -95,8 +95,8 @@
               @click="onImgClick(2, $event)"
             >
               <img
-                v-for="(n, i) in 12"
-                :key="`phone-stem-${i}`"
+                v-for="n in 12"
+                :key="`phone-stem-${n}`"
                 :class="`fx-asparagus__stem-${n}`"
                 :src="getAsparagusStemImg(n)"
                 alt=""
@@ -157,6 +157,8 @@ export default {
     const { elementX, elementY, elementWidth, elementHeight, isOutside } =
       useMouseInElement(mouseTarget)
 
+    const plateUrl = `${import.meta.env.BASE_URL}hero-2-overlay@2x.png`;
+
     return {
       elementX,
       elementY,
@@ -164,6 +166,7 @@ export default {
       elementHeight,
       isOutside,
       mouseTarget,
+      plateUrl
     }
   },
   data() {
@@ -210,14 +213,14 @@ export default {
     getAsparagusStemImg(i) {
       if (i > 4 && i <= 8) i -= 4
       if (i > 8) i -= 8
-      return new URL(`../../public/stem-${i}@2x.png`, import.meta.url)
+      return `stem-${i}@2x.png`
     },
     setupPixi() {
       const loader = new PIXI.Loader()
 
       loader
-        .add('hero', new URL(`/hero-1@2x.jpg`, import.meta.url).href)
-        .add('depthSprite', new URL(`/hero-1-map@2x.jpg`, import.meta.url).href)
+      .add('hero', './hero-1@2x.jpg')
+      .add('depthSprite', './hero-1-map@2x.jpg')
 
       loader.onComplete.add((loader, resources) => {
         // get stage
@@ -283,24 +286,19 @@ export default {
 
       const filter = this.pixi.stage.filters[0]
       const maxRange = 20
+      const offset = maxRange / 2 // Center the effect (range becomes -10 to +10)
+
+      const calculateScale = (position, dimension) => {
+        if (dimension === 0) return 0 // Avoid division by zero
+        const percentage = position / dimension // Get a value between 0.0 and 1.0
+        return percentage * maxRange - offset
+      }
 
       if (x) {
-        const percX = (
-          ((this.elementX / this.elementWidth) * 100) /
-          100
-        ).toFixed(2)
-
-        const newX = percX * maxRange - 10
-        filter.scale.x = newX
+        filter.scale.x = calculateScale(this.elementX, this.elementWidth)
       }
       if (y) {
-        const percY = (
-          ((this.elementY / this.elementHeight) * 100) /
-          100
-        ).toFixed(2)
-
-        const newY = percY * maxRange - 10
-        filter.scale.y = newY
+        filter.scale.y = calculateScale(this.elementY, this.elementHeight)
       }
     },
   },
